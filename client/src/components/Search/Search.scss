@@ -1,0 +1,158 @@
+.search-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+   
+  padding-top: 24px;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  
+  position: fixed;
+  top: 0;
+  right: 0;  
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 90;
+  transform: translateY(100%);
+  animation: slideSearchModal 0.3s ease forwards;
+
+  .form-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 100%;
+    padding-bottom: 12px;
+    position: relative;
+    
+    input {
+      font-family: 'Cabin', sans-serif;
+      text-align: center;
+      margin-top: 48px;
+      padding: 18px 12px;
+      background-color: transparent;
+      width: 60%;
+      font-size: 1.5em;
+      font-weight: bold;
+      border: none;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    }
+
+    .close-icon {
+      position: absolute;
+      top: 0;
+      right: 12px;
+    }
+  }
+
+  .search-results-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    text-align: center;
+    margin: auto;
+
+    .link {
+      height: 100%;
+      width: fit-content;
+    }
+    
+    .search-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+      gap: 24px;
+      justify-content: center;
+      padding: 12px;
+      align-items: center;
+      width: 100%;
+
+      padding-top: 24px;
+      padding-bottom: 24px;
+
+      .search-result-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        padding: 24px 8px;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        width: 300px;
+        height: 400px;
+        margin: auto;
+        background-color: white;
+
+        .image-container {
+          width: 80%;
+          overflow: hidden;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+          }
+        }
+
+        .product-details {
+          text-align: center;
+          font-size: 1.4em;
+          font-weight: bolder;
+          color: #3c4073;;
+
+          .name {
+            color: #3c4073;
+            width: 220px;
+            height: fit-content;
+
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical; 
+            font-family: 'Bricolage Grotesque', sans-serif;
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            border-bottom: 2px solid #3c4073;
+          }
+
+          .price {
+            font-size: 1.5em;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideSearchModal {
+  0% {transform: translateY(100%);}
+  100% {transform: translateY(0);}
+}
+
+@media  (max-width: 800px) {
+  .search-modal {
+    .form-field {
+      input {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media  (max-width: 400px) {
+  .search-modal {
+    .form-field {
+      input {
+        width: 90%;
+        font-size: 1.2em;
+      }
+    }
+  }
+}

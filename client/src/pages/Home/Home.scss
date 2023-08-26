@@ -1,0 +1,45 @@
+.home{
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 20px 40px;
+
+  .top-banner {
+    margin: auto;
+    width: 100%;
+    padding-top: 12px;
+    height: 80vh;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .home {
+    padding: 12px;
+    .top-banner {
+      height: 60vh;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .home {
+    .top-banner {
+      height: 40vh;
+    }
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .home {
+    .top-banner {
+      width: 100%;
+    }
+  }
+}

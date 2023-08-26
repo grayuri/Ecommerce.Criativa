@@ -1,0 +1,64 @@
+@mixin gradient-background-pink() {
+  background-image: radial-gradient(circle at 100% 0%, #ff3392 0, #f82e91 25%, #e9288f 50%, #da238c 75%, #cc1f8a 100%);
+}
+
+
+
+.navbar {
+  @include gradient-background-pink();
+  padding: 20px 40px;
+  width: 100%;
+
+  &.sticky {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+  .logo {
+    width: 80px;
+    margin-bottom: -10px;
+  }
+  
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
+  .right {
+    display: flex;
+    align-items: right;
+  
+    .icons {
+      width: 20%;
+      display: flex;
+      color: white;
+      gap: 18px;
+      
+      .wishlist-icon {
+        color: white;
+      }
+
+      .cartIcon {
+        position: relative;
+  
+        span {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          top: -6px;
+          right: -10px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: #3A3F71;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+

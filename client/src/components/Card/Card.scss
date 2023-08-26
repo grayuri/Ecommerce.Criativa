@@ -1,0 +1,134 @@
+.link  {
+  text-decoration: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  // min-width: 265px;
+  // max-width: 300px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid hsla(235, 32%, 34%, 0.25);
+  border-radius: 12px;
+  
+  .product-image {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 12px;
+    
+    .new-tag {
+      top: 6px;
+      left: 6px;
+      z-index: 5;
+  
+      display: block;
+      padding: 4px;
+      background-color: white;
+      border: 1px solid #a1c447;
+      border-radius: 4px;
+      color: #a1c447;
+      font-family: 'Cabin', sans-serif;
+      font-weight: lighter;
+    }
+
+    .favorite-icons {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      z-index: 5;
+      cursor: pointer;
+
+      display: block;
+      
+      .not-favorite {
+        color: #6c7096;
+      }
+
+      .favorite {
+        color: #dd298f;
+      }
+    }
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: 0.05s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+        transition: 0.15s ease-in-out;
+      }
+    }
+  }
+
+  h2 {
+    width: 100%;
+    color: #3A3F71;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; 
+    text-overflow: ellipsis;
+    text-decoration: none;
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+
+  .price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.5em;
+
+    .old-price {
+      color: rgba(0, 0, 0, 0.4);
+      text-decoration: line-through;
+      font-size: 0.8em;
+    }
+
+    .current-price {
+      color: #a1c447;
+      font-weight: 600;
+    }
+
+    .discount-tag {
+      border-radius: 4px;
+      padding: 4px 8px;
+      background-image: radial-gradient(circle at 100% 0%, #ff3392 0, #f82e91 25%, #e9288f 50%, #da238c 75%, #cc1f8a 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 0.8em;
+    }
+  }
+
+  .button-to-cart {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-family: 'Cabin', sans-serif;
+    font-weight: 600;
+
+    background-image: linear-gradient(180deg, #b4ce54 0, #a1c447 50%, #8dba3a 100%);
+
+    &:hover  {
+      background-image: linear-gradient(180deg, #c7d760 0, #b5ce54 25%, #a1c447 50%, #8dba3a 75%, #7ab12f 100%);
+    }
+
+    &:active  {
+      background-image: linear-gradient(180deg, #c7d760 0, #b5ce54 25%, #a1c447 50%, #8dba3a 75%, #7ab12f 100%);
+    }
+  }
+}

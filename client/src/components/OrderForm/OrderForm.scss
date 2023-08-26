@@ -1,0 +1,124 @@
+.order-form-panel {
+  position: fixed;
+  top: 0;
+  right: 0;  
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+  
+  .opac-layer {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90%;
+    width: 460px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    z-index: 999;
+    position: relative;
+
+    .close-icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      color: #3C4073;
+    }
+
+    .fields {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      // gap: 12px;
+      height: 80%;
+      padding-bottom: 12px;
+
+      .input-div {
+        display: flex;
+        flex-direction: column;
+        color: #3C4073;
+        font-family: 'Cabin', sans-serif;
+        font-weight: bold;
+
+        input {
+          color: #3C4073;
+          padding: 12px;
+          border-radius: 4px;
+          border: 1px solid hsla(236, 31%, 34%, 0.25);
+          font-family: 'Cabin', sans-serif;
+
+          &::placeholder {
+            opacity: 0.6;
+          }
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number] {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance:textfield; 
+          margin: 0; 
+        }
+      }
+    }
+
+    h2 {
+      color: #3C4073;
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
+
+    .send-button {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 16px;
+      cursor: pointer;
+      background-color: #E8288E;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      width: 100%;
+      font-family: 'Cabin', sans-serif;
+
+      background-image: linear-gradient(180deg, #f43c91 0, #e8288d 50%, #db0689 100%);
+
+      &:hover {
+        background-image: linear-gradient(180deg, #ff4c94 0, #f53d91 25%, #e8288d 50%, #db0589 75%, #cf0087 100%);
+      }
+
+      &:active {
+        background-image: linear-gradient(180deg, #ff4c94 0, #f53d91 25%, #e8288d 50%, #db0589 75%, #cf0087 100%);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 555px) {
+  .order-form-panel {
+    .form {
+      width: 100%;  
+      height: 100%;
+      border-radius: 0;
+
+      .fields {
+        .input-div {
+          input {
+            padding: 12px;
+          }
+        }
+      }
+    }
+  }
+}

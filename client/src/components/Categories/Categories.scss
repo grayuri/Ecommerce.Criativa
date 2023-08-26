@@ -1,0 +1,30 @@
+.categories {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: auto;
+  gap: 24px;
+
+  .icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+      width: 148px;
+      border-radius: 50%;
+    }
+    
+    span {
+      display: block;
+      color: #e8288f;
+      font-weight: bolder;
+      width: fit-content;
+      text-align: center;
+      width: 100%;
+      margin: 12px 0;
+      font-size: 1.2em;
+      font-family: 'Cabin', sans-serif;
+    }
+  }
+}
