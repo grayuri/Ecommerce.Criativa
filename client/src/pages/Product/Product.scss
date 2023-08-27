@@ -8,7 +8,7 @@
   .product-details {
     width: 100%;
     display: flex;
-    gap: 24px;
+    gap: 72px;
     font-family: 'Cabin', sans-serif;
 
     .left { 
@@ -19,8 +19,8 @@
       
       img {
         width: 100%;
-        height: 100%;
-        // object-fit: contain;
+        height: 80vh;
+        object-fit: contain;
         border-radius: 12px;
       }
     }
@@ -40,7 +40,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        font-size: 2em;
+        font-size: 2.2em;
         font-family: 'Times New Roman', sans-serif;
 
         .old-price {

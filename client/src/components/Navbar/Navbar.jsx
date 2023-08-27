@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import {Link} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import Headroom from 'react-headroom'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SearchIcon from '@mui/icons-material/Search';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 import './Navbar.scss'
@@ -27,6 +24,7 @@ const Navbar = () => {
                 <img className="logo" src="/images/logo.png" alt="logo" />
               </Link>
             </div>
+          
             <div className="right">
               <div className="icons">
                 <SearchIcon 
@@ -37,13 +35,7 @@ const Navbar = () => {
                     height: '32px'
                   }}
                 />
-
-                {/* <PersonOutlineOutlinedIcon cursor="pointer" />
-
-                <Link className='link' to="/wishlist">
-                  <FavoriteBorderOutlinedIcon className="wishlist-icon" cursor="pointer" />
-                </Link> */}
-
+                
                 <div className="cartIcon">
                   <ShoppingCartOutlinedIcon 
                     cursor="pointer" 

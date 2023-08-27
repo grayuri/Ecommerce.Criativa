@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import CloseIcon from '@mui/icons-material/Close'
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,7 +9,6 @@ import Currency from '../../utils/Currency'
 import { resetCart } from '../../redux/cartReducer'
 
 const OrderForm = ({ products, setShowOrderForm }) => {
-
   const [name, setName] = useState('')
   const [street, setStreet] = useState('')
   const [number, setNumber] = useState(0)
@@ -77,7 +75,9 @@ const OrderForm = ({ products, setShowOrderForm }) => {
           sx={{ width: '32px', height: '32px' }}
           onClick={() => setShowOrderForm(false)}
         />
+
         <h2>Por favor, Preencha os Campos</h2>
+
         <div className="fields">
           <div className="input-div">
             <span>Nome:</span>
@@ -88,6 +88,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
               placeholder='Insira o seu nome...'
             />
           </div>
+
           <div className="input-div">
             <span>Rua:</span>
             <input
@@ -97,6 +98,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
               placeholder='Ex.: Rua José Nunes da Silva'
             />
           </div>
+
           <div className="input-div">
             <span>Número:</span>
             <input
@@ -106,6 +108,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
               placeholder='Insira o número de sua residência...'
             />
           </div>
+
           <div className="input-div">
             <span>Bairro:</span>
             <input
@@ -115,6 +118,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
               placeholder='Ex.: Cohab'
             />
           </div>
+
           <div className="input-div">
             <span>CEP:</span>
             <input
@@ -125,6 +129,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
               placeholder='Ex.: 54590000'
             />
           </div>
+
           <div className="input-div">
             <span>Cidade:</span>
             <input
@@ -137,6 +142,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
         </div>
 
         <button onClick={(e) => sendOrderToWhatsapp()} className='send-button'>ENVIAR</button>
+
         <ToastContainer
           position="bottom-right"
           autoClose={5000}

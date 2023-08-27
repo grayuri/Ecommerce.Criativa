@@ -55,11 +55,10 @@ const Cart = ({ setShowCart }) => {
                   <button onClick={() => setShowCart(false)}>Volte para a Loja</button>
                 </div>
               )
-
               : (
                 <>
                   {
-                    <CartItem products={products} />  
+                    <CartItem products={products} setShowCart={setShowCart} />  
                   }
 
                   <div className="cart-footer">
@@ -82,9 +81,7 @@ const Cart = ({ setShowCart }) => {
       </div>
 
       {
-        showOrderForm === true && (
-          <OrderForm products={products} setShowOrderForm={setShowOrderForm} />
-        )
+        showOrderForm === true && (<OrderForm products={products} setShowOrderForm={setShowOrderForm} />)
       }
     </>
   )

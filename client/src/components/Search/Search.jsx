@@ -1,23 +1,17 @@
-import React, {useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom'
 import CloseIcon from '@mui/icons-material/Close';
 
 import './Search.scss'
-import useFetch from '../../hooks/useFetch'
 import Currency from '../../utils/Currency'
+import { allProducts } from '../../../../warehouse/allProducts';
 
 const Search = ({ setShowSearch }) => {
   const [query, setQuery] = useState("")
 
-  const navigate = useNavigate()
-
-  const onChange = (e) => {
-    setQuery(e.target.value)
-  }
-
-  let {data, loading, error} = useFetch(`/products?populate=*&filters[title][$contains]=${query}`)
-
-  if(query.length === 0) { data=[] }
+  let searchedProducts = allProducts.filter(product => product.title.toLowerCase().includes(query))
+  
+  if (!query.length) { searchedProducts = [] }
 
   const insertProductLink = (id) => `product/${id}`
 
@@ -29,8 +23,9 @@ const Search = ({ setShowSearch }) => {
           autoFocus
           placeholder='Pesquise algum produto...'
           value={query}
-          onChange={onChange}
+          onChange={(e) => setQuery(e.target.value)}
         />
+
         <CloseIcon
           className='close-icon'
           onClick={() => setShowSearch(false)}
@@ -45,7 +40,7 @@ const Search = ({ setShowSearch }) => {
       <div className="search-results-content">
         <div className="search-results">
           {
-            data.map(item => (
+            searchedProducts.map(item => (
               <Link 
                 to={insertProductLink(item.id)} 
                 key={item.id} 
@@ -57,13 +52,12 @@ const Search = ({ setShowSearch }) => {
               >
                 <div className="search-result-item">
                   <div className="image-container">
-                    <img src={
-                      import.meta.env.VITE_REACT_APP_UPLOAD_URL + item.attributes.image.data.attributes.url
-                    } alt="product-image" />
+                    <img src={item.image} alt="product-image" />
                   </div>
+
                   <div className="product-details">
-                    <p className="name"> {item.attributes.title}</p>
-                    <p className='price'> {Currency.format(item.attributes.price)} </p>
+                    <p className="name"> {item.title}</p>
+                    <p className='price'> {Currency.format(item.price)} </p>
                   </div>
                 </div>
               </Link>

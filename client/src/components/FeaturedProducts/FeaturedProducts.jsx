@@ -4,11 +4,12 @@ import axios from "axios"
 import './FeaturedProducts.scss'
 import Card from '../Card/Card'
 import useFetch from '../../hooks/useFetch'
+import {allProducts} from '../../../../warehouse/allProducts'
 
 
 const FeaturedProducts = ({type}) => {
 
-  const {data, loading, error} = useFetch(`/products?populate=*&[filters][type][$eq]=${type}`)
+  const sameTypeProducts = allProducts.filter(product => product.type === type)
 
   const getTypeName = () => {
     if (type === 'featured') {
@@ -26,15 +27,7 @@ const FeaturedProducts = ({type}) => {
         <h1> Produtos em {getTypeName()} </h1>
       </div>
       <div className="bottom">
-        {
-          error 
-            ? "Somethin went wrong..." 
-            : (loading 
-              ? "loading"
-              : data.map(item => (
-                  <Card item={item} key={item.id} />
-                )))
-        }
+        { sameTypeProducts.map(item => (<Card item={item} key={item.id} />)) }
       </div>
     </div>
   )

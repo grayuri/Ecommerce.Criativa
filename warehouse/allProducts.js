@@ -4,7 +4,7 @@ import eletronics from "./eletronics";
 import utilities from "./utilities";
 import toys from "./toys";
 
-const allProducts = [
+export const allProducts = [
   ...cosmetics,
   ...stationary,
   ...eletronics,

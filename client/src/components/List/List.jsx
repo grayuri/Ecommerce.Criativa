@@ -2,18 +2,53 @@ import React from 'react';
 
 import './List.scss';
 import Card from '../../components/Card/Card';
-import useFetch from '../../hooks/useFetch.js';
+import {allProducts} from '../../../../warehouse/allProducts'
 
 const List = ({categorieId, sort}) => {
 
-  const {data, loading, error} = useFetch(
-    `/products?populate=*&[filters][categories][id]=${categorieId}&sort=price:${sort}`
-  )
+  const getCategorieName = () => {
+    switch(categorieId) {
+      case 1: 
+      return "cosmetics"
+      break
+
+      case 2: 
+      return "eletronics"
+      break
+
+      case 3: 
+      return "stationary"
+      break
+
+      case 4: 
+      return "toys"
+      break
+
+      case 5: 
+      return "utilities"
+      break
+    }
+  }
+  
+  const categorieName = getCategorieName()
+  
+  const sameCategoryProducts = allProducts.filter(product => product.category === categorieName)
+
+  const sortHigherProductsPrice = () => {
+    sameCategoryProducts.sort((a,b) => a.price - b.price)
+  }
+
+  const sortLowestProductsPrice = () => {
+    sameCategoryProducts.sort((a,b) => b.price - a.price)
+  }
+
+  if (sort === "asc") { sortHigherProductsPrice() }
+  else { sortLowestProductsPrice() }
 
   return (
     <div className='list'>
       {
-        data?.map(item => (
+        sameCategoryProducts.map(item => (
           <Card item={item} key={item.id} />
         ))
       }
