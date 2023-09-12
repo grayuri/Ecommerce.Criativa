@@ -1,1 +1,0 @@
-const mercadoLivreProducts = products.filter(product => product.origin === 'mercado-livre')

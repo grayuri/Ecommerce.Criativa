@@ -13,6 +13,10 @@
     "banner         banner"
     "category-title filter";
 
+    h1 {
+      text-transform: capitalize;
+    }
+
     .categorie-banner {
       grid-area: banner;
       width: 100%;

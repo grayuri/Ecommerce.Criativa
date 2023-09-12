@@ -1,1 +1,0 @@
-const aliexpressProducts = products.filter(product => product.origin === 'aliexpress')

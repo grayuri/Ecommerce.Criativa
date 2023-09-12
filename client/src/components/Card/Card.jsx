@@ -3,47 +3,17 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useDispatch } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import './Card.scss'
 import Currency from '../../utils/Currency.ts'
 import { addToCart } from '../../redux/cartReducer'
 
-const Card = ({ item }) => {
+const Card = ({ item, addedToCartNotify, alreadyInCartNotify}) => {
   const dispatch = useDispatch()
 
   const productsInCart = useSelector(state => state.cart.idsInCart)
   
-  const addedToCartNotify = () => {
-    return (
-      toast.success('Produto adicionado ao carrinho!', {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
-    )
-  }
-
-  const alreadyInCartNotify = () => {
-    return (
-      toast.warn('Produto já está no carrinho!', {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
-    )
-  }
+  
 
   const getDiscount = (price, oldPrice) => {
     let percent = price / oldPrice
@@ -74,19 +44,6 @@ const Card = ({ item }) => {
   return (
     <div className="card">
       <div className="product-image">
-        <ToastContainer
-          className="toast"
-          position="bottom-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
 
         <Link className='link' onClick={() => window.scrollTo(0, 0)} to={`/product/${item.id}`}>
           <img src={item.image} alt="product-image" />

@@ -22,23 +22,23 @@ const Footer = () => {
         <div className="item">
           <h1>Categorias</h1>
 
-          <Link className='link' to="/products/4" onClick={() => window.scrollTo(0, 0)}>
+          <Link className='link' to='/products/brinquedos' onClick={() => window.scrollTo(0, 0)}>
             <span>Brinquedos</span>
           </Link>
 
-          <Link className='link' to="/products/1" onClick={() => window.scrollTo(0, 0)}>
+          <Link className='link' to='/products/cosméticos' onClick={() => window.scrollTo(0, 0)}>
             <span>Cosméticos</span>
           </Link>
 
-          <Link className='link' to="/products/2" onClick={() => window.scrollTo(0, 0)}>
+          <Link className='link' to='/products/eletrônicos' onClick={() => window.scrollTo(0, 0)}>
             <span>Eletrônicos</span>
           </Link>
 
-          <Link className='link' to="/products/3" onClick={() => window.scrollTo(0, 0)}>
+          <Link className='link' to='/products/papelaria' onClick={() => window.scrollTo(0, 0)}>
             <span>Papelaria</span>
           </Link>
 
-          <Link className='link' to="/products/5" onClick={() => window.scrollTo(0, 0)}>
+          <Link className='link' to='/products/utilidades' onClick={() => window.scrollTo(0, 0)}>
             <span>Utilidades</span>
           </Link>
         </div>

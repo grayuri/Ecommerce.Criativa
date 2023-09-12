@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import {collection, getDocs} from 'firebase/firestore'
 
 import './RelatedProducts.scss'
-import { allProducts } from '../../../../warehouse/allProducts';
 import Card from '../Card/Card';
+import { db } from '../../firebase-config';
 
 const RelatedProducts = ({subcategory, category, id}) => {
+  const [products, setProducts] = useState([])
 
-  const sameSubcategoryProducts = allProducts.filter( product => 
-    ((product.subCategory === subcategory) 
-    || (product.category === category)) 
-    && (product.id !== id)
+  const productsCollectionReference = collection(db, "products")
+
+  useEffect(() => {
+
+    const getProducts = async () => {
+      const data = await getDocs(productsCollectionReference)
+      const productDoc = data.docs.map(doc => ({...doc.data(), id: doc.id}))
+      setProducts(productDoc)
+    }
+    getProducts()
+
+  },[document.querySelector('.bottom')])
+
+  const sameSubcategoryProducts = products.filter( product => 
+    (product.subcategory === subcategory) && (product.id !== id) && (product.category === category)
   )
   const firstSixteenProducts = sameSubcategoryProducts.splice(0,15)
-
-  console.log(sameSubcategoryProducts)
 
   return (
     <div className='related-products'>

@@ -1,15 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom'
+import {collection, getDocs} from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 
 import './Search.scss'
 import Currency from '../../utils/Currency'
-import { allProducts } from '../../../../warehouse/allProducts';
+import { db } from '../../firebase-config';
 
 const Search = ({ setShowSearch }) => {
+  const [products, setProducts] = useState([])
   const [query, setQuery] = useState("")
 
-  let searchedProducts = allProducts.filter(product => product.title.toLowerCase().includes(query))
+  const productsCollectionReference = collection(db, "products")
+
+  useEffect(() => {
+
+    const getProducts = async () => {
+      const data = await getDocs(productsCollectionReference)
+      const productDoc = data.docs.map(doc => ({...doc.data(), id: doc.id}))
+      setProducts(productDoc)
+    }
+
+    getProducts()
+
+  },[document.querySelector('.search-results')])
+
+  let searchedProducts = products.filter(product => product.title.toLowerCase().includes(query))
   
   if (!query.length) { searchedProducts = [] }
 

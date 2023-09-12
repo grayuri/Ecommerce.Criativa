@@ -1,76 +1,58 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import {collection, getDocs} from 'firebase/firestore'
 
 import './Products.scss'
 import List from '../../components/List/List'
+import { db } from '../../firebase-config'
 
 const Products = () => {
-  const categorieId = parseInt(useParams().id)
+  const categoryName = useParams().id
+
+  const [category, setCategory] = useState("")
+  const [banner, setBanner] = useState("")
   const [sort, setSort] = useState("desc")
   
-  const getCategoryName = () => {
-    let categoryName = ''
+  const bannersCollectionReference = collection(db, "banners")
 
-    switch (categorieId) {
-      case 1:
-        categoryName = 'Cosméticos'
-        return categoryName
-        break
-      case 2:
-        categoryName = 'Eletrônicos'
-        return categoryName
-        break
-      case 3:
-        categoryName = 'Papelaria'
-        return categoryName
-        break
-      case 4:
-        categoryName = 'Brinquedos'
-        return categoryName
-        break
-      case 5:
-        categoryName = 'Utilidades'
-        return categoryName
-        break
+  useEffect(() => {
+    
+    const setBannerImage = async () => {
+      const bannerDoc = await getBanners()
+      
+      const filteredBanner = bannerDoc.filter(banner => banner.name === category)
+
+      setBanner(filteredBanner[0].image)
     }
-  }
 
-  const getBannerImage = () => {
-    let banner = ''
-
-    switch (categorieId) {
-      case 1:
-        banner = 'https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-        return banner
-        break
-      case 2:
-        banner = 'https://images.pexels.com/photos/6804466/pexels-photo-6804466.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-        return banner
-        break
-      case 3:
-        banner = 'https://images.pexels.com/photos/2078147/pexels-photo-2078147.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-        return banner
-        break
-      case 4:
-        banner = 'https://images.pexels.com/photos/220137/pexels-photo-220137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-        return banner
-        break
-      case 5:
-        banner = 'https://images.pexels.com/photos/5217778/pexels-photo-5217778.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-        return banner
-        break
+    const setCategoryName = () => {
+      if (categoryName === "brinquedos") setCategory("toys")
+      else if (categoryName === "cosméticos") setCategory("cosmetics")
+      else if (categoryName === "eletrônicos") setCategory("eletronics")
+      else if (categoryName === "papelaria") setCategory("stationary")
+      else if (categoryName === "utilidades") setCategory("utilities")
     }
-  }
+
+    const getBanners = async () => {
+      const data = await getDocs(bannersCollectionReference)
+      const bannerDoc = data.docs.map(doc => ({...doc.data(), id: doc.id}))
+      return bannerDoc
+    }
+    
+    setCategoryName()
+    setBannerImage()
+    
+  },[document.querySelector("#banner-image")])
 
   return (
     <div className='products'>
       <div className="top">
         <div className="categorie-banner">
-          <img src={getBannerImage()} alt="" />
+          <img id="banner-image" src={banner} alt={`${category}-banner`} />
         </div>
 
         <h1 className="category-title">
-          {getCategoryName()}
+          {categoryName}
         </h1>
 
         <div className="filter-item">
@@ -92,7 +74,7 @@ const Products = () => {
         </div>
       </div>
       <div className="bottom">
-        <List categorieId={categorieId} sort={sort} />
+        <List category={category} sort={sort} />
       </div>
     </div>
   )

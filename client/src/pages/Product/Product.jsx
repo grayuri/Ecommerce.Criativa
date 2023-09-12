@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
+import {doc, getDoc} from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -10,19 +11,29 @@ import './Product.scss';
 import RelatedProducts from '../../components/RelatedProducts/RelatedProducts';
 import Currency from '../../utils/Currency';
 import { addToCart } from '../../redux/cartReducer';
-import { allProducts } from '../../../../warehouse/allProducts';
+import {db} from '../../firebase-config.js';
 
 const Product = () => {
   const id = useParams().id
+  const [product, setProduct] = useState({})
   const [quantity, setQuantity] = useState(1)
 
   const dispatch = useDispatch()
 
   const productsInCart = useSelector(state => state.cart.idsInCart)
 
-  const filteredProduct = allProducts.filter(product => product.id == id)
+  useEffect(() => {
+    const getProduct = async () => {
+      const productReference = doc(db, "products", id)
+      const productDoc = await getDoc(productReference).then(
+        doc => ({...doc.data(), id: doc.id})
+      )
+      setProduct(productDoc)
+    }
 
-  const specificProduct = filteredProduct[0]
+    getProduct()
+
+  },[document.querySelector('.product-title')])
 
   const getCategoryName = (category) => {
     let categoryName = ''
@@ -99,7 +110,7 @@ const Product = () => {
   }
 
   const addingToCart = () => {
-    if (!productsInCart.includes(specificProduct.id)) {
+    if (!productsInCart.includes(id)) {
       addedToCartNotify()
     }
     else {
@@ -108,10 +119,10 @@ const Product = () => {
 
     return (
       dispatch(addToCart({
-        id: specificProduct.id,
-        title: specificProduct.title,
-        price: specificProduct.price,
-        image: specificProduct.image,
+        id: id,
+        title: product.title,
+        price: product.price,
+        image: product.image,
         quantity
       }))
     )
@@ -121,26 +132,26 @@ const Product = () => {
     <div className="product-page">
       <div className='product-details'>
         <div className="left">
-          <img src={specificProduct.image} alt="product-image" />
+          <img src={product.image} alt="product-image" />
         </div>
 
         <div className="right">
           <h1 className='product-title'>
-            {specificProduct.title}
+            {product.title}
           </h1>
 
           <div className="product-price">
             {
-              specificProduct.oldPrice > specificProduct.price
+              product.oldPrice > product.price
               ? (
                 <>
-                  <span className="old-price"> {Currency.format(specificProduct.oldPrice)} </span>
-                  <span className="current-price"> {Currency.format(specificProduct.price)} </span>
-                  <span className="discount-tag"> {getDiscount(specificProduct.price, specificProduct.oldPrice)}%</span>
+                  <span className="old-price"> {Currency.format(product.oldPrice)} </span>
+                  <span className="current-price"> {Currency.format(product.price)} </span>
+                  <span className="discount-tag"> {getDiscount(product.price, product.oldPrice)}%</span>
                 </>
               )
               : (
-                <span className="current-price"> {Currency.format(specificProduct.price)} </span>
+                <span className="current-price"> {Currency.format(product.price)} </span>
               )
             }
           </div>
@@ -171,18 +182,18 @@ const Product = () => {
             />
           </div>
 
-          <p className="product-description" dangerouslySetInnerHTML={{__html: specificProduct.description}}></p>
+          <p className="product-description" dangerouslySetInnerHTML={{__html: product.description}}></p>
 
           <hr />
 
           <div className="category-information">
             <span>Categoria: </span>
-            <span>{getCategoryName(specificProduct.category)}</span>
+            <span>{getCategoryName(product.category)}</span>
           </div>
         </div>
       </div>
 
-      <RelatedProducts id={specificProduct.id} subcategory={specificProduct.subcategory} category={specificProduct.category} />
+      <RelatedProducts id={product.id} subcategory={product.subcategory} category={product.category} />
     </div>
   )
 }

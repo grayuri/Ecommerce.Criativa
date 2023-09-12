@@ -1,38 +1,29 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {collection, getDocs} from 'firebase/firestore'
 
 import './List.scss';
 import Card from '../../components/Card/Card';
-import {allProducts} from '../../../../warehouse/allProducts'
+import { db } from '../../firebase-config';
 
-const List = ({categorieId, sort}) => {
+const List = ({category, sort}) => {
+  const [products, setProducts] = useState([])
+  
+  const productsCollectionReference = collection(db, "products")
 
-  const getCategorieName = () => {
-    switch(categorieId) {
-      case 1: 
-      return "cosmetics"
-      break
+  useEffect(() => {
 
-      case 2: 
-      return "eletronics"
-      break
+    const getProducts = async () => {
+      const data = await getDocs(productsCollectionReference)
+      const productDoc = data.docs.map(doc => ({...doc.data(), id: doc.id}))
 
-      case 3: 
-      return "stationary"
-      break
-
-      case 4: 
-      return "toys"
-      break
-
-      case 5: 
-      return "utilities"
-      break
+      setProducts(productDoc)
     }
-  }
-  
-  const categorieName = getCategorieName()
-  
-  const sameCategoryProducts = allProducts.filter(product => product.category === categorieName)
+
+    getProducts()
+
+  },[])
+
+  const sameCategoryProducts = products.filter(product => product.category === category)
 
   const sortHigherProductsPrice = () => {
     sameCategoryProducts.sort((a,b) => a.price - b.price)
