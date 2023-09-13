@@ -5,9 +5,11 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import './Search.scss'
 import Currency from '../../utils/Currency'
+import Loader from '../../components/Loader/Loader';
 import { db } from '../../firebase-config';
 
 const Search = ({ setShowSearch }) => {
+  const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([])
   const [query, setQuery] = useState("")
 
@@ -15,15 +17,18 @@ const Search = ({ setShowSearch }) => {
 
   useEffect(() => {
 
+    setLoading(true)
+
     const getProducts = async () => {
       const data = await getDocs(productsCollectionReference)
       const productDoc = data.docs.map(doc => ({...doc.data(), id: doc.id}))
       setProducts(productDoc)
+      setLoading(false)
     }
 
     getProducts()
 
-  },[document.querySelector('.search-results')])
+  },[])
 
   let searchedProducts = products.filter(product => product.title.toLowerCase().includes(query))
   
@@ -56,7 +61,9 @@ const Search = ({ setShowSearch }) => {
       <div className="search-results-content">
         <div className="search-results">
           {
-            searchedProducts.map(item => (
+            loading === true
+            ? (<Loader />)
+            : searchedProducts.map(item => (
               <Link 
                 to={insertProductLink(item.id)} 
                 key={item.id} 

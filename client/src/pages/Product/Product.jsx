@@ -10,11 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import './Product.scss';
 import RelatedProducts from '../../components/RelatedProducts/RelatedProducts';
 import Currency from '../../utils/Currency';
+import Loader from '../../components/Loader/Loader';
 import { addToCart } from '../../redux/cartReducer';
 import {db} from '../../firebase-config.js';
 
 const Product = () => {
   const id = useParams().id
+  const [loading, setLoading] = useState(false)
   const [product, setProduct] = useState({})
   const [quantity, setQuantity] = useState(1)
 
@@ -23,17 +25,20 @@ const Product = () => {
   const productsInCart = useSelector(state => state.cart.idsInCart)
 
   useEffect(() => {
+    setLoading(true)
+
     const getProduct = async () => {
       const productReference = doc(db, "products", id)
       const productDoc = await getDoc(productReference).then(
         doc => ({...doc.data(), id: doc.id})
       )
       setProduct(productDoc)
+      setLoading(false)
     }
 
     getProduct()
 
-  },[document.querySelector('.product-title')])
+  },[])
 
   const getCategoryName = (category) => {
     let categoryName = ''
@@ -130,70 +135,78 @@ const Product = () => {
 
   return (
     <div className="product-page">
-      <div className='product-details'>
-        <div className="left">
-          <img src={product.image} alt="product-image" />
-        </div>
+      {
+        loading === true
+        ? (<Loader sizeOf={124} allSize={true} />)
+        : (
+          <>
+                <div className='product-details'>
+              <div className="left">
+                <img src={product.image} alt="product-image" />
+              </div>
 
-        <div className="right">
-          <h1 className='product-title'>
-            {product.title}
-          </h1>
+              <div className="right">
+                <h1 className='product-title'>
+                  {product.title}
+                </h1>
 
-          <div className="product-price">
-            {
-              product.oldPrice > product.price
-              ? (
-                <>
-                  <span className="old-price"> {Currency.format(product.oldPrice)} </span>
-                  <span className="current-price"> {Currency.format(product.price)} </span>
-                  <span className="discount-tag"> {getDiscount(product.price, product.oldPrice)}%</span>
-                </>
-              )
-              : (
-                <span className="current-price"> {Currency.format(product.price)} </span>
-              )
-            }
-          </div>
+                <div className="product-price">
+                  {
+                    product.oldPrice > product.price
+                    ? (
+                      <>
+                        <span className="old-price"> {Currency.format(product.oldPrice)} </span>
+                        <span className="current-price"> {Currency.format(product.price)} </span>
+                        <span className="discount-tag"> {getDiscount(product.price, product.oldPrice)}%</span>
+                      </>
+                    )
+                    : (
+                      <span className="current-price"> {Currency.format(product.price)} </span>
+                    )
+                  }
+                </div>
 
-          <div className="add-to-cart-buttons">
-            <div className="quantity">
-              <button onClick={(e) => decrementQuantity()}>-</button>
-              <button>{quantity}</button>
-              <button onClick={(e) => incrementQuantity()}>+</button>
+                <div className="add-to-cart-buttons">
+                  <div className="quantity">
+                    <button onClick={(e) => decrementQuantity()}>-</button>
+                    <button>{quantity}</button>
+                    <button onClick={(e) => incrementQuantity()}>+</button>
+                  </div>
+
+                  <div className="add-to-cart" onClick={() => addingToCart()}>
+                    <AddShoppingCartIcon />
+                    Adicionar ao Carrinho
+                  </div>
+
+                  <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                  />
+                </div>
+
+                <p className="product-description" dangerouslySetInnerHTML={{__html: product.description}}></p>
+
+                <hr />
+
+                <div className="category-information">
+                  <span>Categoria: </span>
+                  <span>{getCategoryName(product.category)}</span>
+                </div>
+              </div>
             </div>
 
-            <div className="add-to-cart" onClick={() => addingToCart()}>
-              <AddShoppingCartIcon />
-              Adicionar ao Carrinho
-            </div>
-
-            <ToastContainer
-              position="bottom-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
-          </div>
-
-          <p className="product-description" dangerouslySetInnerHTML={{__html: product.description}}></p>
-
-          <hr />
-
-          <div className="category-information">
-            <span>Categoria: </span>
-            <span>{getCategoryName(product.category)}</span>
-          </div>
-        </div>
-      </div>
-
-      <RelatedProducts id={product.id} subcategory={product.subcategory} category={product.category} />
+            <RelatedProducts id={product.id} subcategory={product.subcategory} category={product.category} />
+          </>
+        )
+      }
     </div>
   )
 }

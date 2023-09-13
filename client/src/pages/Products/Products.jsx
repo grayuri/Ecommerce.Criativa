@@ -4,11 +4,13 @@ import {collection, getDocs} from 'firebase/firestore'
 
 import './Products.scss'
 import List from '../../components/List/List'
+import Loader from '../../components/Loader/Loader'
 import { db } from '../../firebase-config'
 
 const Products = () => {
   const categoryName = useParams().id
 
+  const [loading, setLoading] = useState(false)
   const [category, setCategory] = useState("")
   const [banner, setBanner] = useState("")
   const [sort, setSort] = useState("desc")
@@ -17,12 +19,14 @@ const Products = () => {
 
   useEffect(() => {
     
+    setLoading(true)
+
     const setBannerImage = async () => {
       const bannerDoc = await getBanners()
-      
       const filteredBanner = bannerDoc.filter(banner => banner.name === category)
 
       setBanner(filteredBanner[0].image)
+      setLoading(false)
     }
 
     const setCategoryName = () => {
@@ -48,7 +52,11 @@ const Products = () => {
     <div className='products'>
       <div className="top">
         <div className="categorie-banner">
-          <img id="banner-image" src={banner} alt={`${category}-banner`} />
+          {
+            loading === true
+            ? (<Loader />)
+            : (<img id="banner-image" src={banner} alt={`${category}-banner`} />)
+          }
         </div>
 
         <h1 className="category-title">
