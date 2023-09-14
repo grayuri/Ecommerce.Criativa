@@ -154,11 +154,12 @@ const Product = () => {
                   {
                     product.oldPrice > product.price
                     ? (
-                      <>
-                        <span className="old-price"> {Currency.format(product.oldPrice)} </span>
+                      <p>
+                        <span className="old-price"> {Currency.format(product.oldPrice)}</span>
+                        <br/>
                         <span className="current-price"> {Currency.format(product.price)} </span>
                         <span className="discount-tag"> {getDiscount(product.price, product.oldPrice)}%</span>
-                      </>
+                      </p>
                     )
                     : (
                       <span className="current-price"> {Currency.format(product.price)} </span>

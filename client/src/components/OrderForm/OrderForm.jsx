@@ -32,7 +32,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
   }
 
   const sendOrderToWhatsapp = (e) => {
-    let whatsappUrl = 'https://wa.me/send/?phone=5581984269986&text='
+    let whatsappUrl = 'https://api.whatsapp.com/send?phone=5581984269986&text='
 
     let templateMessage = `Olá! Meu nome é *${name.toUpperCase()}* e gostaria de fazer-lhe um pedido com os seguintes produtos: %0A%0A`
 

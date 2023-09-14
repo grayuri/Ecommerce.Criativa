@@ -30,7 +30,7 @@ const Search = ({ setShowSearch }) => {
 
   },[])
 
-  let searchedProducts = products.filter(product => product.title.toLowerCase().includes(query))
+  let searchedProducts = products.filter(product => product.title.toLowerCase().includes(query.toLowerCase()))
   
   if (!query.length) { searchedProducts = [] }
 

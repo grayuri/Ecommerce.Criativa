@@ -9,7 +9,7 @@ import './Footer.scss'
 const Footer = () => {
 
   const getWhatsappUrl = () => {
-    return window.location.href = 'https://wa.me/send/?phone=5581984269986'
+    return window.location.href = 'https://api.whatsapp.com/send?phone=5581984269986'
   } 
 
   const getInstagramUrl = () => {
