@@ -19,7 +19,7 @@ const RelatedProducts = ({subcategory, category, id}) => {
     }
     getProducts()
 
-  },[document.querySelector('.bottom')])
+  },[])
 
   const sameSubcategoryProducts = products.filter( product => 
     (product.subcategory === subcategory) && (product.id !== id) && (product.category === category)
@@ -32,7 +32,9 @@ const RelatedProducts = ({subcategory, category, id}) => {
       <div className="bottom">
         {
           firstSixteenProducts.map(item => (
-            <Card item={item} key={item.id} />
+            <div className="single-product" onClick={() => window.location.reload()}>
+              <Card item={item} key={item.id} />
+            </div>
           ))
         }
       </div>

@@ -11,7 +11,7 @@ const List = ({category, sort}) => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  
+
   const productsCollectionReference = collection(db, "products")
 
   useEffect(() => {
@@ -43,14 +43,15 @@ const List = ({category, sort}) => {
   }
 
   const sortHigherProductsPrice = () => {
-    sameCategoryProducts.sort((a,b) => a.price - b.price)
+    products.sort((a,b) => a.price - b.price)
   }
 
   const sortLowestProductsPrice = () => {
-    sameCategoryProducts.sort((a,b) => b.price - a.price)
+    products.sort((a,b) => b.price - a.price)
   }
 
   if (sort === "asc") { sortHigherProductsPrice() }
+  else if (sort === "") { products }
   else { sortLowestProductsPrice() }
 
   return (
@@ -59,8 +60,8 @@ const List = ({category, sort}) => {
         {
           loading === true
           ? (<Loader />)
-          : currentProducts.map(item => (
-            <Card item={item} key={item.id} />
+          : currentProducts.map(item => ( 
+              <Card item={item} key={item.id} />
           ))
         }
       </div>

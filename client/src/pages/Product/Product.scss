@@ -78,6 +78,7 @@
         align-items: center;
         gap: 24px;
         height: 48px;
+        margin: 12px 0;
 
         .quantity {
           display: flex;
@@ -116,7 +117,7 @@
           font-size: 1.2em;
           text-align: center;
           width: 234px;
-          height: 48px;
+          height: 64px;
           border-radius: 4px;
           color: white;
           word-break: unset;

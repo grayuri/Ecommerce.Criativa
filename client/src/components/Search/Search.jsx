@@ -30,11 +30,16 @@ const Search = ({ setShowSearch }) => {
 
   },[])
 
+
+  const transitionOfProductPage = () => {
+    setShowSearch(false)
+    window.scrollTo(0, 0)
+    setTimeout(() => window.location.reload(), 320)
+  }
+
   let searchedProducts = products.filter(product => product.title.toLowerCase().includes(query.toLowerCase()))
   
   if (!query.length) { searchedProducts = [] }
-
-  const insertProductLink = (id) => `product/${id}`
 
   return (
     <div className='search-modal'>
@@ -65,13 +70,10 @@ const Search = ({ setShowSearch }) => {
             ? (<Loader />)
             : searchedProducts.map(item => (
               <Link 
-                to={insertProductLink(item.id)} 
+                to={`/product/${item.id}`} 
                 key={item.id} 
                 className="link" 
-                onClick={() => {
-                  setShowSearch(false)
-                  window.scrollTo(0, 0)
-                }}
+                onClick={transitionOfProductPage}
               >
                 <div className="search-result-item">
                   <div className="image-container">

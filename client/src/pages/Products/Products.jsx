@@ -75,6 +75,12 @@ const Products = () => {
           <h2>Ordenar por</h2>
           <select name="prices" id="prices" onChange={(e) => setSort(e.target.value)}>
             <option 
+              id="all" 
+              value=""
+            >
+              Qualquer Preço
+            </option>
+            <option 
               id="lowest" 
               value="desc"
             >
