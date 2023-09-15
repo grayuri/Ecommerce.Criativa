@@ -18,12 +18,12 @@ const Products = () => {
   const bannersCollectionReference = collection(db, "banners")
 
   useEffect(() => {
-    
-    setLoading(true)
 
     const setBannerImage = async () => {
+      setLoading(true)
+      const bannerCategory = getCategoryName()
       const bannerDoc = await getBanners()
-      const filteredBanner = bannerDoc.filter(banner => banner.name === category)
+      const filteredBanner = bannerDoc.filter(banner => banner.name === bannerCategory)
 
       setBanner(filteredBanner[0].image)
       setLoading(false)
@@ -37,6 +37,14 @@ const Products = () => {
       else if (categoryName === "utilidades") setCategory("utilities")
     }
 
+    const getCategoryName = () => {
+      if (categoryName === "brinquedos") return "toys"
+      else if (categoryName === "cosméticos") return "cosmetics"
+      else if (categoryName === "eletrônicos") return "eletronics"
+      else if (categoryName === "papelaria") return "stationary"
+      else if (categoryName === "utilidades") return "utilities"
+    }
+
     const getBanners = async () => {
       const data = await getDocs(bannersCollectionReference)
       const bannerDoc = data.docs.map(doc => ({...doc.data(), id: doc.id}))
@@ -46,7 +54,7 @@ const Products = () => {
     setCategoryName()
     setBannerImage()
     
-  },[document.querySelector("#banner-image")])
+  },[])
 
   return (
     <div className='products'>

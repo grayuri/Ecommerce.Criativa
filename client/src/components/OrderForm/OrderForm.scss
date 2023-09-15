@@ -30,6 +30,7 @@
     padding: 24px;
     z-index: 999;
     position: relative;
+    overflow: auto;
 
     .close-icon {
       position: absolute;
@@ -42,8 +43,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 12px;
-      height: 80%;
+      gap: 18px;
+      // height: 80%;
       padding-bottom: 12px;
 
       .input-div {
@@ -74,11 +75,7 @@
           margin: 0; 
         }
       }
-    }
 
-    h2 {
-      color: #3C4073;
-      font-family: 'Bricolage Grotesque', sans-serif;
     }
 
     .send-button {
@@ -103,6 +100,11 @@
         background-image: linear-gradient(180deg, #ff4c94 0, #f53d91 25%, #e8288d 50%, #db0589 75%, #cf0087 100%);
       }
     }
+
+    h2 {
+      color: #3C4073;
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
   }
 }
 
@@ -110,7 +112,7 @@
   .order-form-panel {
     .form {
       width: 100%;  
-      height: 100vh;
+      height: 100%;
       border-radius: 0;
 
       .fields {
