@@ -32,9 +32,7 @@ const RelatedProducts = ({subcategory, category, id}) => {
       <div className="bottom">
         {
           firstSixteenProducts.map(item => (
-            <div className="single-product" onClick={() => window.location.reload()}>
-              <Card item={item} key={item.id} />
-            </div>
+            <Card item={item} key={item.id} />
           ))
         }
       </div>

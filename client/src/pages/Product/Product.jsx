@@ -38,7 +38,7 @@ const Product = () => {
 
     getProduct()
 
-  },[])
+  },[id])
 
   const getCategoryName = (category) => {
     let categoryName = ''

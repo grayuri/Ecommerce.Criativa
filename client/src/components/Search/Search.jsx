@@ -34,7 +34,6 @@ const Search = ({ setShowSearch }) => {
   const transitionOfProductPage = () => {
     setShowSearch(false)
     window.scrollTo(0, 0)
-    setTimeout(() => window.location.reload(), 320)
   }
 
   let searchedProducts = products.filter(product => product.title.toLowerCase().includes(query.toLowerCase()))
