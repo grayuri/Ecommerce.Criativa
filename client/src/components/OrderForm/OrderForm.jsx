@@ -37,7 +37,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
     let templateMessage = `Olá! Meu nome é *${name.toUpperCase()}* e gostaria de fazer-lhe um pedido com os seguintes produtos: %0A%0A`
 
     products.forEach(item => {
-      templateMessage += `.${item.quantity} UN - ${item.title}: ${Currency.format(item.price * item.quantity)} %0A`
+      templateMessage += `.${item.quantity} UN - ${item.title.toUpperCase()}: ${Currency.format(item.price * item.quantity)} %0A`
     })
 
     let totalPrice = products.reduce((accum, item) => accum + (item.price * item.quantity), 0)
@@ -45,7 +45,7 @@ const OrderForm = ({ products, setShowOrderForm }) => {
     templateMessage += `%0A Total: ${Currency.format(totalPrice)}`
     templateMessage += `%0A%0A . . . . . . . . . . . . . . . . . . . . %0A%0A`
     templateMessage += `Poderia informar o valor do frete desses produtos para o meu endereço atual? Listarei-o abaixo:%0A`
-    templateMessage += `%0A*Rua:* ${street.toUpperCase()} %0A*Numero:* ${number} %0A*Bairro:* ${neighborhood.toUpperCase()} %0A*CEP:* ${cep} %0A*Cidade:* ${city.toUpperCase()}`
+    templateMessage += `%0A*Rua:* ${street.toUpperCase()} %0A*Número:* ${number} %0A*Bairro:* ${neighborhood.toUpperCase()} %0A*CEP:* ${cep} %0A*Cidade:* ${city.toUpperCase()}`
 
 
     if (
